@@ -8,10 +8,13 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { authUser, addAlert } from '../actions';
+
 class Login extends React.Component {
   onSignIn = () => {
     const {email, password} = this.props.fields;
-    // console.log(email.value, password.value);
+    // this.props.dispatch(authUser('fake Id'));
+    this.props.dispatch(addAlert('Hello World'));
   }
 
   render(){
@@ -132,5 +135,3 @@ export default reduxForm({
   fields: ['email', 'password'],
   validate: validate
 }, null, null)(Login);
-
-//reduxForm take 3 arguments, an object describing form, mapStateToProps and mapActionsToProps

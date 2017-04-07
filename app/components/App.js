@@ -14,14 +14,31 @@ import {
 // import {addTodo} from '../actions';
 
 import Login from './Login';
+import Main from './Main';
+import AlertContainer from './alerts/AlertContainer';
 
 class App extends React.Component {
 
   render(){
     return (
-      <Login />
+      <View style={{flex: 1}}>
+        {this.renderMainView()}
+        <AlertContainer />
+      </View>
     );
-  }
+  };
+
+  renderMainView() {
+    if(this.props.user_id){
+      return (
+        <Main />
+      );
+    } else {
+      return (
+        <Login />
+      );
+    }
+  };
   // constructor(props){
   //   super(props);
   //
@@ -111,7 +128,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos
+    user_id: state.auth.user_id
   };
 }
 
