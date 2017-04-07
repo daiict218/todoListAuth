@@ -8,14 +8,18 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import { authUser, addAlert } from '../actions';
+import { loginUser, signupUser, addAlert } from '../actions';
 
 class Login extends React.Component {
   onSignIn = () => {
-    const {email, password} = this.props.fields;
-    // this.props.dispatch(authUser('fake Id'));
-    this.props.dispatch(addAlert('Hello World'));
-  }
+    const {dispatch, fields: {email, password}} = this.props;
+    dispatch(loginUser(email.value, password.value));
+  };
+
+  onSignUp = () => {
+    const {dispatch, fields: {email, password}} = this.props;
+    dispatch(signupUser(email.value, password.value));
+  };
 
   render(){
     const { handleSubmit, fields: { email, password } } = this.props;   //reduxForm provides this props [handleSubmit] and fields which we sent in the last line
@@ -50,13 +54,13 @@ class Login extends React.Component {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity>
-            <Text style={styles.button} onPress={this.onSignIn}>
+          <TouchableOpacity onPress={this.onSignIn}>
+            <Text style={styles.button}>
               {'Sign in'}
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.button} onPress={this.onSignUp}>
+          <TouchableOpacity onPress={this.onSignUp}>
+            <Text style={styles.button}>
               {'Sign up'}
             </Text>
           </TouchableOpacity>
