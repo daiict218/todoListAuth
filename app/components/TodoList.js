@@ -10,6 +10,10 @@ import {
   ScrollView
 } from 'react-native';
 
+import NewTodo from './NewTodo';
+
+import {unauthUser} from '../actions';
+
 const TodoItem = (props) => {
   return (
     <View style={styles.todoContainer}>
@@ -26,11 +30,15 @@ class TodoList extends React.Component {
   };
 
   onLogout = () => {
-
+    this.props.dispatch(unauthUser);
   };
 
   addNewTodo = () => {
-
+    this.props.navigator.push({
+      component: NewTodo,
+      title: 'New Todo',
+      navigationBarHidden: true
+    });
   };
 
   onRefresh = () => {

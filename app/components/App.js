@@ -30,15 +30,15 @@ class App extends React.Component {
   };
 
   renderMainView() {
-    // if(this.props.user_id){
+    if(this.props.user_id){
       return (
         <Main />
       );
-    // } else {
-    //   return (
-    //     <Login />
-    //   );
-    // }
+    } else {
+      return (
+        <Login />
+      );
+    }
   };
   // constructor(props){
   //   super(props);
