@@ -1,44 +1,39 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  NavigatorIOS
 } from 'react-native';
 
-import {unauthUser} from '../actions';
+// import {unauthUser} from '../actions';
+import TodoList from './TodoList';
 
 class Main extends React.Component {
-  unauthUser = () => {
-    this.props.dispatch(unauthUser);
-  };
+  // unauthUser = () => {
+  //   this.props.dispatch(unauthUser);
+  // };
+  //
+  // <TouchableOpacity onPress={this.unauthUser}>
+  //   <Text>
+  //     {'Log Out'}
+  //   </Text>
+  // </TouchableOpacity>
 
   render(){
     return (
-      <View style={styles.container}>
-        <Text>
-          {'Hey there'}
-        </Text>
-        <TouchableOpacity onPress={this.unauthUser}>
-          <Text>
-            {'Log Out'}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <NavigatorIOS
+        style={{flex: 1}}
+        initialRoute={{
+          component: TodoList,
+          todo: 'Todo List',
+          navigationBarHidden: true
+        }}
+      />
     );
   };
 }
 
-const styles = StyleSheet.create({
-  container : {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    paddingTop: 20,
-    backgroundColor: '#aaa'
-  }
-});
-
-export default connect()(Main);
+export default Main;
