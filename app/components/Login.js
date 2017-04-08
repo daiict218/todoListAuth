@@ -11,20 +11,52 @@ import {
 import { loginUser, signupUser, addAlert } from '../actions';
 
 class Login extends React.Component {
+  state = {
+      loading: false
+  };
+
   onSignIn = () => {
     const {dispatch, fields: {email, password}} = this.props;
-    dispatch(loginUser(email.value, password.value));
+
+    this.setState({
+      loading: true
+    });
+
+    dispatch(loginUser(email.value, password.value)).then(() => {
+      this.setState({
+        loading: false
+      });
+    });
   };
 
   onSignUp = () => {
     const {dispatch, fields: {email, password}} = this.props;
-    dispatch(signupUser(email.value, password.value));
+
+    this.setState({
+      loading: true
+    });
+
+    dispatch(signupUser(email.value, password.value)).then(() => {
+      this.setState({
+        loading: false
+      });
+    });
   };
 
   render(){
     const { handleSubmit, fields: { email, password } } = this.props;   //reduxForm provides this props [handleSubmit] and fields which we sent in the last line
 
     // console.log(email, password);
+
+    if(this.state.loading){
+      return (
+        <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text>
+            {'Loading'}
+          </Text>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>
