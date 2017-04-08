@@ -12,7 +12,7 @@ import {
 
 import NewTodo from './NewTodo';
 
-import {unauthUser} from '../actions';
+import {unauthUser, getTodos} from '../actions';
 
 const TodoItem = (props) => {
   return (
@@ -42,7 +42,11 @@ class TodoList extends React.Component {
   };
 
   onRefresh = () => {
-
+    this.setState({refreshing: true});
+    this.props.dispatch(getTodos)
+      .then(() => {
+        this.setState({refreshing: false});
+      })
   };
 
   renderTodos() {

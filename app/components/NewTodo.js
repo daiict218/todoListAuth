@@ -11,15 +11,28 @@ import {
   TextInput
 } from 'react-native';
 
+import {createTodo} from '../actions';
+
 class NewTodo extends React.Component {
   state = {
-    newTodoText: ''
+    newTodoText: '',
+    loading: false
   };
 
   addNewTodo = () => {
     const {newTodoText} = this.state;
-    if(newTodoText && newTodoText != ''){
-      console.log(this.state.newTodoText);
+    this.setState({
+      loading: true
+    });
+
+    if(newTodoText && newTodoText !== ''){
+      this.props.dispatch(createTodo(newTodoText))
+        .then(() => {
+          this.setState({
+            loading: false
+          });
+          this.props.navigator.pop();
+        });
     }
   };
 
@@ -41,6 +54,22 @@ class NewTodo extends React.Component {
             <Icon name={'check'} size={20} color={'white'}/>
           </TouchableOpacity>
         </View>
+        {this.renderScrollViewOrLoading()}
+      </View>
+    );
+  };
+
+  renderScrollViewOrLoading() {
+    if(this.state.loading){
+      return (
+        <View style={{flex: 1}}>
+          <Text>
+            {'Creating todo'}
+          </Text>
+        </View>
+      )
+    } else {
+      return (
         <ScrollView
           automaticallyAdjustContentInsets={false}
           contentContainerStyle={styles.scrollViewContainer}
@@ -57,9 +86,9 @@ class NewTodo extends React.Component {
             />
           </View>
         </ScrollView>
-      </View>
-    );
-  };
+      );
+    }
+  }
 }
 
 const styles = StyleSheet.create({

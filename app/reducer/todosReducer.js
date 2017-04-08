@@ -1,21 +1,15 @@
-import uuid from 'uuid';
-const defaultState = [{
-  _id: 'asdfasd12312312fas',
-  text: 'Hey Props'
-}];
-
-module.exports = (state = defaultState, action) => {
+module.exports = (state=[], action) => {
   switch(action.type){
     //action when user signs in
     case 'ADD_TODO':
       return [
         ...state,
-        {
-          text: action.text,
-          id: uuid.v4()
-        }
+        action.newTodo
       ];
       break;
+
+    case 'SET_TODOS':
+      return action.todos;
 
     //action when user signs out
     case 'REMOVE_TODO':
